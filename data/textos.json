@@ -1,0 +1,35 @@
+{
+  "ui": {
+    "reception_sign": "RECEPCIÓN",
+    "room_one_sign": "SALA DE PUERTAS 1",
+    "room_two_sign": "SALA DE PUERTAS 2",
+    "door_prompt": "E  Revisar puerta",
+    "door_prompt_two_players": "E / Enter  Revisar puerta",
+    "receptionist_prompt": "E  Hablar con la recepcionista",
+    "receptionist_prompt_two_players": "E / Enter  Hablar con la recepcionista",
+    "locked_prompt": "El acceso al pasillo está cerrado.",
+    "timer": "Tiempo: {seconds}",
+    "wrong_door": "No es la correcta",
+    "correct_door": "Es la correcta",
+    "game_over": "GAME OVER",
+    "game_over_reason": "El enfermero te encontró en el hospital.",
+    "retry": "Presiona R para reintentar",
+    "dialogue_continue": "E / ESPACIO  Continuar",
+    "dialogue_continue_two_players": "E / Enter  Continuar",
+    "waiting_player": "Esperando al otro jugador...",
+    "cinematic_placeholder": "Cinemática 1: pendiente",
+    "placeholder_note": "La siguiente pieza de la historia se implementará después."
+  },
+  "dialogues": {
+    "receptionist": [
+      {
+        "speaker": "Periodistas",
+        "text": "Queremos saber dónde está la habitación de las chicas."
+      },
+      {
+        "speaker": "Recepcionista",
+        "text": "Están en la habitación 304."
+      }
+    ]
+  }
+}

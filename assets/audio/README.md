@@ -1,0 +1,1 @@
+Coloca aquí `ambiente_hospital.ogg` (loop estéreo) y `pasos.wav` (pasos cortos). Ambos son opcionales.

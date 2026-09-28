@@ -1,0 +1,1 @@
+Coloca aquí `pixel.ttf` para reemplazar la fuente de reserva. Las fuentes se cargarán como sustituto opcional.

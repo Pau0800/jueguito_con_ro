@@ -1,0 +1,7 @@
+{
+  "file": "atlas_periodista_2.png",
+  "frame_width": 16,
+  "frame_height": 24,
+  "columns": ["idle", "walk_a", "walk_b", "walk_c"],
+  "rows": ["down", "left", "right", "up"]
+}

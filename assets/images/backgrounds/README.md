@@ -1,0 +1,1 @@
+Fondos del menú y de las tres zonas. Los PNG pueden reemplazarse sin cambiar el código. Resolución recomendada: 960 x 540 para escenas y 320 x 180 para el menú.
