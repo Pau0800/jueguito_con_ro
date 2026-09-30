@@ -12,7 +12,7 @@ from juego.config import (
 )
 from juego import estado_juego
 from juego.scenes.base_scene import BaseScene
-from juego.scenes.placeholder import CinematicaPendiente
+from juego.scenes.cinematica import Cinematica1
 from juego.systems.ambiente import AmbienteHospital
 from juego.systems.audio_ambiente import AudioAmbiente
 from juego.systems.fonts import cargar_fuente
@@ -117,12 +117,15 @@ class EscenaHospital(BaseScene):
             self.tiempo_mensaje = max(0, self.tiempo_mensaje - delta)
             if self.tiempo_mensaje == 0:
                 if self.transicion_programada:
-                    self.gestor.change_scene(CinematicaPendiente)
+                    self.gestor.change_scene(Cinematica1)
                     self.transicion_programada = False
                 else:
                     self.mensaje_puerta = ""
 
-        if self.dialogo is not None or self.mensaje_puerta == self.textos["ui"]["correct_door"]:
+        if self.dialogo is not None:
+            self.dialogo.update(delta)
+            return
+        if self.mensaje_puerta == self.textos["ui"]["correct_door"]:
             return
 
         obstaculos = self._obstaculos_actuales()

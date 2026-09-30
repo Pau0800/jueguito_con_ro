@@ -18,7 +18,14 @@
     "dialogue_continue_two_players": "E / Enter  Continuar",
     "waiting_player": "Esperando al otro jugador...",
     "cinematic_placeholder": "Cinemática 1: pendiente",
-    "placeholder_note": "La siguiente pieza de la historia se implementará después."
+    "placeholder_note": "La siguiente pieza de la historia se implementará después.",
+    "cinematic_skip": "ESC  Saltar cinemática",
+    "scene_two_pending": "Escena 2 - pendiente",
+    "return_to_menu": "ENTER / ESPACIO  Volver al inicio"
+  },
+  "names": {
+    "journalists": "Periodistas",
+    "girls_together": "Las dos chicas"
   },
   "dialogues": {
     "receptionist": [
@@ -31,5 +38,47 @@
         "text": "Están en la habitación 304."
       }
     ]
+  },
+  "cinematics": {
+    "rooms": {
+      "room_304": {
+        "background": "images/backgrounds/habitacion_304.png",
+        "capas": {
+          "pared": "fondos/habitacion/room_304/pared.png",
+          "piso": "fondos/habitacion/room_304/piso.png",
+          "props": "fondos/habitacion/room_304/props.png"
+        },
+        "props": [
+          {"id": "door", "sprite": "images/cinematics/puerta_habitacion.png", "x": 790, "y": 76, "width": 118, "height": 342, "layer": 1},
+          {"id": "window", "sprite": "images/cinematics/ventana_rejas.png", "x": 97, "y": 84, "width": 156, "height": 104, "layer": 1},
+          {"id": "bed", "sprite": "images/cinematics/cama_hospital.png", "x": 63, "y": 355, "width": 260, "height": 112, "layer": 2}
+        ],
+        "characters": [
+          {"id": "journalist_a", "name_key": "journalists", "sprite": "sprites/personajes/periodista_1/atlas.png", "animacion": "idle", "x": 708, "y": 230, "width": 48, "height": 96, "layer": 3, "kind": "periodista", "visible": false},
+          {"id": "journalist_b", "name_key": "journalists", "sprite": "sprites/personajes/periodista_2/atlas.png", "animacion": "idle", "x": 754, "y": 230, "width": 48, "height": 96, "layer": 4, "kind": "periodista", "visible": false},
+          {"id": "girl_a", "name_key": "girls_together", "sprite": "sprites/personajes/chica_1/atlas.png", "animacion": "sentada", "x": 411, "y": 245, "width": 64, "height": 80, "layer": 2, "kind": "chica", "visible": false},
+          {"id": "girl_b", "name_key": "girls_together", "sprite": "sprites/personajes/chica_2/atlas.png", "animacion": "sentada", "x": 522, "y": 245, "width": 64, "height": 80, "layer": 2, "kind": "chica", "visible": false}
+        ]
+      }
+    },
+    "cinematic_1": [
+      {"tipo": "FADE_IN", "duracion_config": "DURACION_FADE_CINEMATICA"},
+      {"tipo": "ESPERAR", "duracion_config": "DURACION_ESPERA_CINEMATICA"},
+      {"tipo": "MOSTRAR_PERSONAJE", "personaje": "girl_a"},
+      {"tipo": "MOSTRAR_PERSONAJE", "personaje": "girl_b"},
+      {"tipo": "MOSTRAR_PERSONAJE", "personaje": "journalist_a"},
+      {"tipo": "MOSTRAR_PERSONAJE", "personaje": "journalist_b"},
+      {"tipo": "SONIDO_AMBIENTE", "sonidos": ["murmullos_hospital", "zumbido_fluorescente", "gotera"]},
+      {"tipo": "DIALOGO", "nombre_key": "journalists", "texto_key": "cinematic_1.journalists"},
+      {"tipo": "DIALOGO_SIMULTANEO", "nombre_key": "girls_together", "texto_key": "cinematic_1.girls"},
+      {"tipo": "FADE_OUT", "duracion_config": "DURACION_FADE_CINEMATICA"},
+      {"tipo": "CAMBIAR_ESCENA", "destino": "scene_2"}
+    ],
+    "dialogues": {
+      "cinematic_1": {
+        "journalists": "Quieren saber su historia",
+        "girls": "Se lo contamos"
+      }
+    }
   }
 }
