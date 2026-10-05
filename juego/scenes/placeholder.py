@@ -6,30 +6,22 @@ from juego.scenes.base_scene import BaseScene
 
 
 class Escena2Pendiente(BaseScene):
+    """Conserva el destino de la Cinemática 1 y delega al cementerio."""
+
+    def __init__(self, gestor) -> None:
+        super().__init__(gestor)
+        from juego.scenes.escena_cementerio import EscenaCementerio
+
+        self.escena = EscenaCementerio(gestor)
+
     def handle_event(self, evento: pygame.event.Event) -> None:
-        if evento.type == pygame.KEYDOWN and evento.key in (
-            pygame.K_RETURN,
-            pygame.K_SPACE,
-            pygame.K_ESCAPE,
-            pygame.K_e,
-        ):
-            from juego.scenes.menu import MenuInicio
+        self.escena.handle_event(evento)
 
-            self.gestor.change_scene(MenuInicio)
-
-    def update(self, _delta: float) -> None:
-        del _delta
+    def update(self, delta: float) -> None:
+        self.escena.update(delta)
 
     def draw(self, pantalla: pygame.Surface) -> None:
-        pantalla.fill((10, 12, 12))
-        titulo = self.gestor.fuente_grande.render(
-            self.textos["ui"]["scene_two_pending"], True, (200, 191, 171)
-        )
-        ayuda = self.gestor.fuente.render(
-            self.textos["ui"]["return_to_menu"], True, (135, 139, 130)
-        )
-        pantalla.blit(titulo, titulo.get_rect(center=(480, 246)))
-        pantalla.blit(ayuda, ayuda.get_rect(center=(480, 307)))
+        self.escena.draw(pantalla)
 
 
 class CinematicaPendiente(BaseScene):
@@ -51,3 +43,27 @@ class CinematicaPendiente(BaseScene):
         )
         pantalla.blit(titulo, titulo.get_rect(center=(480, 245)))
         pantalla.blit(nota, nota.get_rect(center=(480, 300)))
+
+
+class Cinematica2Pendiente(BaseScene):
+    """Destino temporal al completar el cementerio."""
+
+    def handle_event(self, evento: pygame.event.Event) -> None:
+        if evento.type == pygame.KEYDOWN and evento.key in (
+            pygame.K_RETURN,
+            pygame.K_SPACE,
+            pygame.K_ESCAPE,
+        ):
+            from juego.scenes.menu import MenuInicio
+
+            self.gestor.change_scene(MenuInicio)
+
+    def update(self, _delta: float) -> None:
+        del _delta
+
+    def draw(self, pantalla: pygame.Surface) -> None:
+        pantalla.fill((8, 11, 12))
+        titulo = self.gestor.fuente_grande.render(
+            self.textos["ui"]["cinematic_2_pending"], True, (195, 189, 173)
+        )
+        pantalla.blit(titulo, titulo.get_rect(center=(480, 255)))

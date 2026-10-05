@@ -1,0 +1,22 @@
+{
+  "obstaculos": [
+    {"tipo": "lapida", "x": 780, "ancho": 38, "alto": 58},
+    {"tipo": "nicho", "x": 1420, "ancho": 64, "alto": 78},
+    {"tipo": "pozo", "x": 2140, "ancho": 78},
+    {"tipo": "lapida", "x": 3180, "ancho": 42, "alto": 62},
+    {"tipo": "pozo", "x": 4020, "ancho": 82},
+    {"tipo": "nicho", "x": 4890, "ancho": 72, "alto": 82},
+    {"tipo": "lapida", "x": 5630, "ancho": 42, "alto": 62},
+    {"tipo": "pozo", "x": 6120, "ancho": 86},
+    {"tipo": "lapida", "x": 6720, "ancho": 38, "alto": 56},
+    {"tipo": "nicho", "x": 7200, "ancho": 68, "alto": 76},
+    {"tipo": "pozo", "x": 7650, "ancho": 88},
+    {"tipo": "lapida", "x": 8180, "ancho": 44, "alto": 65},
+    {"tipo": "pozo", "x": 8570, "ancho": 92},
+    {"tipo": "nicho", "x": 9100, "ancho": 72, "alto": 82},
+    {"tipo": "lapida", "x": 9560, "ancho": 42, "alto": 62},
+    {"tipo": "pozo", "x": 9890, "ancho": 96},
+    {"tipo": "lapida", "x": 10310, "ancho": 44, "alto": 66}
+  ],
+  "separacion_meta_borde": 340
+}

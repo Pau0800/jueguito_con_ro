@@ -185,9 +185,9 @@ class CinematicRoomRenderer:
         return mascaras
 
     def dibujar_fondo(self, pantalla: pygame.Surface) -> None:
-        pantalla.blit(self.capas["pared"], (0, 0))
-        pantalla.blit(self.capas["piso"], (0, 0))
-        pantalla.blit(self.capas["props"], (0, 0))
+        for nombre in CAPAS_HABITACION:
+            if nombre in self.capas:
+                pantalla.blit(self.capas[nombre], (0, 0))
 
     def dibujar_sombras(self, pantalla: pygame.Surface, actores: list[dict[str, object]]) -> None:
         if not EFECTOS_CINEMATICA["sombras_habilitadas"]:

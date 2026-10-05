@@ -13,6 +13,9 @@
     "correct_door": "Es la correcta",
     "game_over": "GAME OVER",
     "game_over_reason": "El enfermero te encontró en el hospital.",
+    "cemetery_fall_reason": "El sereno cayó en una tumba abierta.",
+    "cemetery_fail_reason": "Los serenos no lograron salir de la tumba.",
+    "cemetery_intro": "Hay alguien en el cementerio",
     "retry": "Presiona R para reintentar",
     "dialogue_continue": "E / ESPACIO  Continuar",
     "dialogue_continue_two_players": "E / Enter  Continuar",
@@ -21,6 +24,7 @@
     "placeholder_note": "La siguiente pieza de la historia se implementará después.",
     "cinematic_skip": "ESC  Saltar cinemática",
     "scene_two_pending": "Escena 2 - pendiente",
+    "cinematic_2_pending": "CINEMÁTICA 2 - PENDIENTE",
     "return_to_menu": "ENTER / ESPACIO  Volver al inicio"
   },
   "names": {
@@ -42,7 +46,6 @@
   "cinematics": {
     "rooms": {
       "room_304": {
-        "background": "images/backgrounds/habitacion_304.png",
         "capas": {
           "pared": "fondos/habitacion/room_304/pared.png",
           "piso": "fondos/habitacion/room_304/piso.png",

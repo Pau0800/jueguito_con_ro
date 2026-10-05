@@ -3,6 +3,7 @@
 import pygame
 from pathlib import Path
 
+from juego import estado_juego
 from juego.scenes.base_scene import BaseScene
 from juego.scenes.seleccion_jugadores import SeleccionJugadores
 from juego.systems.ambiente import AmbienteHospital
@@ -58,6 +59,11 @@ class MenuInicio(BaseScene):
                 self.gestor.change_scene(SeleccionJugadores)
         elif evento.type == pygame.KEYDOWN and evento.key in (pygame.K_RETURN, pygame.K_SPACE):
             self.gestor.change_scene(SeleccionJugadores)
+        elif evento.type == pygame.KEYDOWN and evento.key in (pygame.K_F2, pygame.K_F3):
+            from juego.scenes.placeholder import Escena2Pendiente
+
+            estado_juego.definir_cantidad_jugadores(1 if evento.key == pygame.K_F2 else 2)
+            self.gestor.change_scene(Escena2Pendiente)
 
     def update(self, _delta: float) -> None:
         del _delta

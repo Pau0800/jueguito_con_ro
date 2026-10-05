@@ -1,0 +1,1 @@
+El atlas `atlas.png` puede reemplazar el placeholder procedural: 128 x 288 px, celda 32 x 48 px, 4 columnas por 6 filas. El orden de animaciones está documentado en el README de `personajes`.

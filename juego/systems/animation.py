@@ -49,14 +49,15 @@ class SpriteAnimado:
         self, indice: int, tamano_celda: tuple[int, int]
     ) -> dict[str, list[pygame.Surface]]:
         estados = {
-            "idle": "abajo",
             "walk_down": "abajo",
             "walk_left": "izquierda",
             "walk_right": "derecha",
             "walk_up": "arriba",
-            "sentada": "abajo",
         }
-        filas: dict[str, list[pygame.Surface]] = {}
+        filas: dict[str, list[pygame.Surface]] = {
+            "idle": self._crear_placeholder_idle(indice, tamano_celda),
+            "sentada": self._crear_placeholder_sentada(indice, tamano_celda),
+        }
         for estado, orientacion in estados.items():
             if estado == "sentada":
                 filas[estado] = self._crear_placeholder_sentada(indice, tamano_celda)
@@ -66,6 +67,30 @@ class SpriteAnimado:
                     for frame in range(4)
                 ]
         return filas
+
+    @staticmethod
+    def _crear_placeholder_idle(
+        indice: int, tamano: tuple[int, int]
+    ) -> list[pygame.Surface]:
+        ancho, alto = tamano
+        frames: list[pygame.Surface] = []
+        for respiracion in (0, 1, 0, -1):
+            frame = SpriteAnimado._crear_placeholder_caminando(
+                "abajo", 1, indice, tamano
+            )
+            escala_x, escala_y = ancho / 32, alto / 48
+            pygame.draw.rect(
+                frame,
+                PALETA_TERROR["tela"],
+                (
+                    round(14 * escala_x),
+                    round((26 + respiracion) * escala_y),
+                    max(1, round(4 * escala_x)),
+                    max(1, round(2 * escala_y)),
+                ),
+            )
+            frames.append(frame)
+        return frames
 
     @staticmethod
     def _crear_placeholder_caminando(

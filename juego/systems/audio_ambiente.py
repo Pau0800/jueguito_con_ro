@@ -4,11 +4,11 @@ from pathlib import Path
 
 import pygame
 
-from juego.config import ASSETS_AUDIO, VOLUMENES_AUDIO
+from juego.config import ASSETS_AUDIO, SONIDOS_AUDIO_HOSPITAL, VOLUMENES_AUDIO
 
 
 class AudioAmbiente:
-    def __init__(self) -> None:
+    def __init__(self, nombres_sonidos: tuple[str, ...] | None = None) -> None:
         self.ultima_huella = 0.0
         self.sonidos: dict[str, pygame.mixer.Sound] = {}
         self.canales: dict[str, pygame.mixer.Channel] = {}
@@ -20,7 +20,12 @@ class AudioAmbiente:
                 pygame.mixer.init()
             pygame.mixer.set_num_channels(max(pygame.mixer.get_num_channels(), 12))
             self.disponible = True
-            for nombre, (ruta_relativa, canal_nombre) in ASSETS_AUDIO.items():
+            nombres = SONIDOS_AUDIO_HOSPITAL if nombres_sonidos is None else nombres_sonidos
+            for nombre in nombres:
+                if nombre not in ASSETS_AUDIO:
+                    print(f"Audio configurado desconocido: '{nombre}'.")
+                    continue
+                ruta_relativa, canal_nombre = ASSETS_AUDIO[nombre]
                 ruta = raiz / ruta_relativa
                 if not ruta.is_file():
                     self._avisar_faltante(nombre, ruta_relativa)
