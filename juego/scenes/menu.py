@@ -64,6 +64,11 @@ class MenuInicio(BaseScene):
 
             estado_juego.definir_cantidad_jugadores(1 if evento.key == pygame.K_F2 else 2)
             self.gestor.change_scene(Escena2Pendiente)
+        elif evento.type == pygame.KEYDOWN and evento.key in (pygame.K_F4, pygame.K_F5):
+            from juego.scenes.cinematica_2 import Cinematica2
+
+            estado_juego.definir_cantidad_jugadores(1 if evento.key == pygame.K_F4 else 2)
+            self.gestor.change_scene(Cinematica2)
 
     def update(self, _delta: float) -> None:
         del _delta

@@ -15,6 +15,19 @@ DURACION_ESPERA_CINEMATICA = 0.55
 SALTAR_CINEMATICA_HABILITADO = True
 TECLA_SALTAR_CINEMATICA = "escape"
 
+# Parámetros de la Cinemática 2.
+# Fase 1: pantalla negra durante 3 s.
+# Fase 2: fade in de la escena (duración configurable).
+# Fase 3: cinemática principal durante 7 s.
+# Fase 4: fade out y transición a la siguiente escena.
+CINEMATICA_2_TIEMPO_NEGRO = 3.0
+CINEMATICA_2_TIEMPO_CINEMATICA = 7.0
+CINEMATICA_2_FADE_SEGUNDOS = 1.0
+CINEMATICA_2_ZOOM_INICIAL = 1.0
+CINEMATICA_2_ZOOM_FINAL = 1.12
+CINEMATICA_2_VELOCIDAD_ANIMACION = 0.9
+CINEMATICA_2_VELOCIDAD_TEMBLOR = 1.7
+
 # Parámetros compartidos por la escena lineal del cementerio.
 VELOCIDAD_CEMENTERIO = 220.0
 DURACION_CEMENTERIO_SEGUNDOS = 50.0

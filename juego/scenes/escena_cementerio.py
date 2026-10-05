@@ -393,10 +393,10 @@ class EscenaCementerio(BaseScene):
             progreso = min(1.0, self.tiempo_fade / SEGUNDOS_FADE_INTRO_CEMENTERIO)
             self.opacidad = round(255 * progreso)
             if progreso >= 1.0:
-                from juego.scenes.placeholder import Cinematica2Pendiente
+                from juego.scenes.cinematica_2 import Cinematica2
 
                 self.audio.detener_ambientes()
-                self.gestor.change_scene(Cinematica2Pendiente)
+                self.gestor.change_scene(Cinematica2)
         if self.fase == "jugando":
             for indice, jugador in enumerate(self.jugadores):
                 otro = self.jugadores[1 - indice] if len(self.jugadores) == 2 else None

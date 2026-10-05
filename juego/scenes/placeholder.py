@@ -67,3 +67,31 @@ class Cinematica2Pendiente(BaseScene):
             self.textos["ui"]["cinematic_2_pending"], True, (195, 189, 173)
         )
         pantalla.blit(titulo, titulo.get_rect(center=(480, 255)))
+
+
+class Cinematica3Pendiente(BaseScene):
+    """Placeholder para la continuación de la historia."""
+
+    def __init__(self, gestor) -> None:
+        super().__init__(gestor)
+        print("Cinemática 3 pendiente: falta implementar la escena de continuación.")
+
+    def handle_event(self, evento: pygame.event.Event) -> None:
+        if evento.type == pygame.KEYDOWN and evento.key in (
+            pygame.K_RETURN,
+            pygame.K_SPACE,
+            pygame.K_ESCAPE,
+        ):
+            from juego.scenes.menu import MenuInicio
+
+            self.gestor.change_scene(MenuInicio)
+
+    def update(self, _delta: float) -> None:
+        del _delta
+
+    def draw(self, pantalla: pygame.Surface) -> None:
+        pantalla.fill((5, 7, 9))
+        titulo = self.gestor.fuente_grande.render("CINEMÁTICA 3", True, (210, 201, 181))
+        texto = self.gestor.fuente.render("PENDIENTE: falta implementar la continuación.", True, (175, 172, 160))
+        pantalla.blit(titulo, titulo.get_rect(center=(480, 240)))
+        pantalla.blit(texto, texto.get_rect(center=(480, 300)))
