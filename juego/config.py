@@ -29,9 +29,10 @@ CINEMATICA_2_VELOCIDAD_ANIMACION = 0.9
 CINEMATICA_2_VELOCIDAD_TEMBLOR = 1.7
 
 # Parámetros compartidos por la escena lineal del cementerio.
-VELOCIDAD_CEMENTERIO = 220.0
-DURACION_CEMENTERIO_SEGUNDOS = 50.0
-LARGO_NIVEL_CEMENTERIO = int(VELOCIDAD_CEMENTERIO * DURACION_CEMENTERIO_SEGUNDOS)
+# Aumento moderado para mantener un ritmo fluido en el tramo largo del cementerio.
+VELOCIDAD_CEMENTERIO = 245.0
+# Longitud fija del mapa: conserva la posición final relativa a los obstáculos existentes.
+LARGO_NIVEL_CEMENTERIO = 11000
 ALTURA_SUELO_CEMENTERIO = 414
 ANCHO_COLLIDER_CEMENTERIO = 24
 ALTO_COLLIDER_CEMENTERIO = 42

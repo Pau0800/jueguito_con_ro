@@ -413,13 +413,28 @@ class EscenaCementerio(BaseScene):
                     self.audio.reproducir_sfx("caida_tumba")
             self._actualizar_rescate(delta)
             self._actualizar_audio_pasos(delta)
-            if not self.game_over and all(
-                jugador.rect.centerx >= int(self.datos_nivel["tumba_final_x"])
-                for jugador in self.jugadores
-            ):
-                self.fase = "final"
-                self.tiempo_final = 0.0
+            if not self.game_over and all(self._entro_en_tumba_final(jugador) for jugador in self.jugadores):
+                self._iniciar_final_cementerio()
         self.camara.actualizar(self.jugadores, delta)
+
+    def _entro_en_tumba_final(self, jugador: JugadorCementerio) -> bool:
+        x_tumba = int(self.datos_nivel["tumba_final_x"])
+        zona_meta = pygame.Rect(x_tumba, ALTURA_SUELO_CEMENTERIO - 20, 184, 22)
+        return jugador.rect.colliderect(zona_meta)
+
+    def _iniciar_final_cementerio(self) -> None:
+        """Congela el grupo al llegar y deja que SceneManager inicie su fade."""
+        self.fase = "final"
+        self.tiempo_final = 0.0
+        for jugador in self.jugadores:
+            jugador.moviendo = False
+            jugador.animacion.seleccionar("idle")
+            jugador.animacion.indice_frame = 0
+            jugador.animacion.tiempo = 0.0
+        from juego.scenes.placeholder import Cinematica2Pendiente
+
+        self.audio.detener_ambientes()
+        self.gestor.change_scene(Cinematica2Pendiente)
 
     def draw(self, pantalla: pygame.Surface) -> None:
         for capa in CAPAS_CEMENTERIO:
