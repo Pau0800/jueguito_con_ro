@@ -1,4 +1,4 @@
-"""Ajustes rápidos del prototipo."""
+"""Ajustes rápidos del prototipo.hola"""
 
 ANCHO_PANTALLA = 960
 ALTO_PANTALLA = 540
