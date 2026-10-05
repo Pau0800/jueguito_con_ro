@@ -22,9 +22,9 @@ TECLA_SALTAR_CINEMATICA = "escape"
 # Fase 4: fade out y transición a la siguiente escena.
 CINEMATICA_2_TIEMPO_NEGRO = 3.0
 CINEMATICA_2_TIEMPO_CINEMATICA = 7.0
-CINEMATICA_2_FADE_SEGUNDOS = 1.0
+CINEMATICA_2_FADE_SEGUNDOS = 0.5
 CINEMATICA_2_ZOOM_INICIAL = 1.0
-CINEMATICA_2_ZOOM_FINAL = 1.12
+CINEMATICA_2_ZOOM_FINAL = 1.10
 CINEMATICA_2_VELOCIDAD_ANIMACION = 0.9
 CINEMATICA_2_VELOCIDAD_TEMBLOR = 1.7
 
@@ -214,6 +214,9 @@ VOLUMENES_AUDIO = {
 	"sfx": 0.50,
 	"viento": 0.28,
 	"grillos": 0.20,
+	"masticacion": 0.40,
+	"respiracion": 0.30,
+	"tono": 0.35,
 }
 
 ASSETS_AUDIO = {
@@ -227,6 +230,9 @@ ASSETS_AUDIO = {
 	"salto": ("audio/sfx/salto.wav", "sfx"),
 	"caida_tumba": ("audio/sfx/caida_tumba.wav", "sfx"),
 	"rescate": ("audio/sfx/rescate.wav", "sfx"),
+	"masticacion_baja": ("audio/ambiente/masticacion_baja.ogg", "masticacion"),
+	"respiracion": ("audio/ambiente/respiracion.ogg", "respiracion"),
+	"tono_grave": ("audio/ambiente/tono_grave.ogg", "tono"),
 }
 
 SONIDOS_AUDIO_HOSPITAL = (

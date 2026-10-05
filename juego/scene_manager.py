@@ -26,6 +26,15 @@ class SceneManager:
             self.estado_fundido = "salida"
 
     def handle_event(self, evento: pygame.event.Event) -> None:
+        if evento.type == pygame.KEYDOWN and evento.key == pygame.K_F5:
+            from juego.scenes.cinematica_2 import Cinematica2
+
+            print("[DEBUG] Tecla F5 presionada: saltando directamente a Cinemática 2.")
+            self.escena = Cinematica2(self)
+            self.escena_pendiente = None
+            self.estado_fundido = "quieto"
+            self.opacidad = 0
+            return
         if self.estado_fundido == "quieto" and self.escena is not None:
             self.escena.handle_event(evento)
 

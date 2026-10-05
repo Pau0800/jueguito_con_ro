@@ -1,8 +1,12 @@
+#!python3.13
 """Punto de entrada del prototipo narrativo."""
+
+import sys
 
 import pygame
 
 from juego.scenes.menu import MenuInicio
+from juego.scenes.cinematica_2 import Cinematica2
 from juego.scene_manager import SceneManager
 
 
@@ -16,7 +20,11 @@ def main() -> None:
     pygame.display.set_caption("Hospital psiquiátrico | Prototipo")
 
     gestor = SceneManager(pantalla)
-    gestor.start(MenuInicio)
+    if "--cinematica2" in sys.argv:
+        print("[DEBUG] Argumento --cinematica2 detectado: iniciando directamente en Cinemática 2.")
+        gestor.start(Cinematica2)
+    else:
+        gestor.start(MenuInicio)
     reloj = pygame.time.Clock()
     ejecutando = True
 

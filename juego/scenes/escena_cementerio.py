@@ -396,7 +396,9 @@ class EscenaCementerio(BaseScene):
                 from juego.scenes.cinematica_2 import Cinematica2
 
                 self.audio.detener_ambientes()
-                self.gestor.change_scene(Cinematica2)
+                self.gestor.start(Cinematica2)
+                self.gestor.estado_fundido = "quieto"
+                self.gestor.opacidad = 0
         if self.fase == "jugando":
             for indice, jugador in enumerate(self.jugadores):
                 otro = self.jugadores[1 - indice] if len(self.jugadores) == 2 else None
@@ -423,7 +425,7 @@ class EscenaCementerio(BaseScene):
         return jugador.rect.colliderect(zona_meta)
 
     def _iniciar_final_cementerio(self) -> None:
-        """Congela el grupo al llegar y deja que SceneManager inicie su fade."""
+        """Congela el grupo al llegar y contempla los cuerpos en la tumba."""
         self.fase = "final"
         self.tiempo_final = 0.0
         for jugador in self.jugadores:
@@ -431,10 +433,6 @@ class EscenaCementerio(BaseScene):
             jugador.animacion.seleccionar("idle")
             jugador.animacion.indice_frame = 0
             jugador.animacion.tiempo = 0.0
-        from juego.scenes.placeholder import Cinematica2Pendiente
-
-        self.audio.detener_ambientes()
-        self.gestor.change_scene(Cinematica2Pendiente)
 
     def draw(self, pantalla: pygame.Surface) -> None:
         for capa in CAPAS_CEMENTERIO:
