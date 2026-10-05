@@ -16,6 +16,7 @@
     "cemetery_fall_reason": "El sereno cayó en una tumba abierta.",
     "cemetery_fail_reason": "Los serenos no lograron salir de la tumba.",
     "cemetery_intro": "Hay alguien en el cementerio",
+    "cemetery_warning": "¡Cuidado con las tumbas abiertas! Saltá sobre ellas o vas a caer.",
     "retry": "Presiona R para reintentar",
     "dialogue_continue": "E / ESPACIO  Continuar",
     "dialogue_continue_two_players": "E / Enter  Continuar",

@@ -12,6 +12,7 @@ from juego.config import (
     GRAVEDAD_CEMENTERIO,
     VELOCIDAD_ANIMACION_CEMENTERIO,
     VELOCIDAD_CEMENTERIO,
+    VELOCIDAD_HORIZONTAL_SALTO_CEMENTERIO,
 )
 from juego.systems.animation import SpriteAnimado
 from juego.systems.collision import mover_con_colisiones
@@ -81,6 +82,9 @@ class JugadorCementerio:
         else:
             self.animacion.seleccionar("idle")
         self.animacion.update(delta)
+
+        if not self.en_suelo and self.velocidad_vertical < 0:
+            desplazamiento_x *= VELOCIDAD_HORIZONTAL_SALTO_CEMENTERIO
 
         obstaculos_laterales = [
             obstaculo

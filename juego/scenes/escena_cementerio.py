@@ -12,8 +12,10 @@ from juego.config import (
     ALTO_PANTALLA,
     ALTURA_SUELO_CEMENTERIO,
     ANCHO_PANTALLA,
+    CANTIDAD_TUMBAS_ABIERTAS_CEMENTERIO,
     CAPAS_CEMENTERIO,
     DISTANCIA_RESCATE,
+    DURACION_CARTEL_ADVERTENCIA_CEMENTERIO,
     EFECTOS_CEMENTERIO,
     INTERVALO_PASOS_CEMENTERIO,
     LARGO_NIVEL_CEMENTERIO,
@@ -22,6 +24,7 @@ from juego.config import (
     SEGUNDOS_FINAL_CEMENTERIO,
     SEGUNDOS_RESCATE,
     SEGUNDOS_FADE_INTRO_CEMENTERIO,
+    SILUETAS_FINALES_CEMENTERIO,
     TOQUES_RESCATE_NECESARIOS,
     VELOCIDAD_CAMARA_CEMENTERIO,
 )
@@ -114,6 +117,19 @@ class FondoCementerio:
             for rama in range(3):
                 inicio_y = 378 - altura + rama * 20
                 pygame.draw.line(superficie, PALETA_CEMENTERIO["arbol"], (posicion_x - 13, inicio_y), (posicion_x - 34, inicio_y - 19), 3)
+
+        for posicion_x in (520, 1100, 2160, 3330, 4520, 5900, 7040, 8250, 9360):
+            pygame.draw.rect(superficie, PALETA_CEMENTERIO["nicho"], (posicion_x, 286, 44, 96))
+            pygame.draw.rect(superficie, PALETA_CEMENTERIO["metal"], (posicion_x, 286, 44, 96), 3)
+            pygame.draw.rect(superficie, PALETA_CEMENTERIO["nicho_fondo"], (posicion_x + 8, 294, 28, 74))
+            pygame.draw.line(superficie, PALETA_CEMENTERIO["arbol_borde"], (posicion_x + 14, 286), (posicion_x + 14, 382), 2)
+            pygame.draw.line(superficie, PALETA_CEMENTERIO["arbol_borde"], (posicion_x + 30, 286), (posicion_x + 30, 382), 2)
+
+        for posicion_x in (780, 1880, 2810, 4170, 6790, 8610):
+            pygame.draw.rect(superficie, PALETA_CEMENTERIO["piedra"], (posicion_x, 320, 28, 52))
+            pygame.draw.line(superficie, PALETA_CEMENTERIO["grabado"], (posicion_x + 12, 330), (posicion_x + 12, 362), 2)
+            pygame.draw.line(superficie, PALETA_CEMENTERIO["grabado"], (posicion_x + 6, 344), (posicion_x + 18, 344), 2)
+
         return superficie
 
     def _crear_suelo(self) -> pygame.Surface:
@@ -126,6 +142,9 @@ class FondoCementerio:
             posicion_y = azar.randrange(ALTURA_SUELO_CEMENTERIO + 5, ALTO_PANTALLA)
             color = azar.choice((PALETA_CEMENTERIO["tierra"], PALETA_CEMENTERIO["suelo"], PALETA_CEMENTERIO["fondo_piedra"]))
             pygame.draw.rect(superficie, color, (posicion_x, posicion_y, azar.randrange(2, 10), azar.randrange(1, 4)))
+        for posicion_x in range(0, self.ANCHO_CAPA, 180):
+            pygame.draw.rect(superficie, (47, 53, 48), (posicion_x + 16, ALTURA_SUELO_CEMENTERIO + 14, 90, 6))
+            pygame.draw.rect(superficie, (68, 58, 49), (posicion_x + 26, ALTURA_SUELO_CEMENTERIO + 18, 22, 4))
         return superficie
 
     @staticmethod
@@ -300,6 +319,21 @@ class EscenaCementerio(BaseScene):
             for obstaculo in self.obstaculos_datos
             if obstaculo["tipo"] == "pozo"
         ]
+        if len(self.pozos) != CANTIDAD_TUMBAS_ABIERTAS_CEMENTERIO:
+            print(
+                "Advertencia: cantidad de tumbas abiertas del cementerio "
+                f"= {len(self.pozos)}; se esperaba {CANTIDAD_TUMBAS_ABIERTAS_CEMENTERIO}."
+            )
+        self.tiempo_cartel = 0.0
+        self.cartel_advertencia = self.textos["ui"]["cemetery_warning"]
+        self.siluetas_finales = {
+            "cantidad": int(SILUETAS_FINALES_CEMENTERIO["cantidad"]),
+            "ancho": int(SILUETAS_FINALES_CEMENTERIO["ancho"]),
+            "alto": int(SILUETAS_FINALES_CEMENTERIO["alto"]),
+            "amplitud": float(SILUETAS_FINALES_CEMENTERIO["amplitud"]),
+            "velocidad": float(SILUETAS_FINALES_CEMENTERIO["velocidad"]),
+            "desfase": float(SILUETAS_FINALES_CEMENTERIO["desfase"]),
+        }
 
     def handle_event(self, evento: pygame.event.Event) -> None:
         if evento.type == pygame.KEYDOWN and evento.key == pygame.K_F1:
@@ -335,6 +369,8 @@ class EscenaCementerio(BaseScene):
             return
         if self.dialogo is not None:
             self.dialogo.update(delta)
+        if self.fase == "jugando":
+            self.tiempo_cartel += delta
         if self.fase in ("fundido_a_negro", "fundido_desde_negro"):
             self.tiempo_fade += delta
             progreso = min(1.0, self.tiempo_fade / SEGUNDOS_FADE_INTRO_CEMENTERIO)
@@ -399,6 +435,7 @@ class EscenaCementerio(BaseScene):
                 self.fondo.dibujar_efectos(pantalla, self.jugadores, self.camara.x, self.tiempo_escena)
             elif capa == "interfaz":
                 self._dibujar_interfaz(pantalla)
+                self._dibujar_cartel_advertencia(pantalla)
             elif capa == "fade":
                 self._dibujar_fade(pantalla)
 
@@ -496,13 +533,40 @@ class EscenaCementerio(BaseScene):
 
     def _dibujar_cuerpos_tumba_final(self, pantalla: pygame.Surface) -> None:
         tumba_x = round(int(self.datos_nivel["tumba_final_x"]) - self.camara.x)
-        for indice in range(2):
-            cuerpo_x = tumba_x + 22 + indice * 77
-            cuerpo_y = ALTURA_SUELO_CEMENTERIO - 38
-            pygame.draw.ellipse(pantalla, PALETA_CEMENTERIO["cuerpo"], (cuerpo_x, cuerpo_y, 57, 24))
-            pygame.draw.rect(pantalla, PALETA_CEMENTERIO["cuerpo_ropa"], (cuerpo_x + 15, cuerpo_y + 5, 34, 14))
-            pygame.draw.ellipse(pantalla, PALETA_CEMENTERIO["cuerpo_piel"], (cuerpo_x, cuerpo_y + 3, 20, 19))
-            pygame.draw.line(pantalla, PALETA_CEMENTERIO["cuerpo_luz"], (cuerpo_x + 26, cuerpo_y + 7), (cuerpo_x + 43, cuerpo_y + 17), 2)
+        for indice in range(self.siluetas_finales["cantidad"]):
+            offset = math.sin(self.tiempo_final * self.siluetas_finales["velocidad"] + indice * self.siluetas_finales["desfase"]) * self.siluetas_finales["amplitud"]
+            cuerpo_x = tumba_x + 26 + indice * 76
+            cuerpo_y = ALTURA_SUELO_CEMENTERIO - 36 + offset
+            silueta = pygame.Surface((self.siluetas_finales["ancho"], self.siluetas_finales["alto"]), pygame.SRCALPHA)
+            pygame.draw.ellipse(silueta, (7, 9, 9, 180), (0, 0, self.siluetas_finales["ancho"], 18))
+            pygame.draw.rect(silueta, (7, 9, 9, 180), (8, 14, 20, 20))
+            pygame.draw.rect(silueta, (7, 9, 9, 180), (5, 32, 26, 18))
+            pygame.draw.ellipse(silueta, (7, 9, 9, 180), (0, 20, 12, 16))
+            pygame.draw.ellipse(silueta, (7, 9, 9, 180), (20, 20, 12, 16))
+            pantalla.blit(silueta, (cuerpo_x, cuerpo_y))
+
+        marcador = pygame.Rect(tumba_x + 70, ALTURA_SUELO_CEMENTERIO - 112, 40, 16)
+        pygame.draw.rect(pantalla, (7, 9, 9), marcador)
+
+    def _dibujar_cartel_advertencia(self, pantalla: pygame.Surface) -> None:
+        if self.fase != "jugando":
+            return
+        if self.tiempo_cartel >= DURACION_CARTEL_ADVERTENCIA_CEMENTERIO * 2.0:
+            return
+        if self.tiempo_cartel < 0.2:
+            fade = min(1.0, self.tiempo_cartel / 0.2)
+        elif self.tiempo_cartel > DURACION_CARTEL_ADVERTENCIA_CEMENTERIO:
+            fade = max(0.0, 1.0 - (self.tiempo_cartel - DURACION_CARTEL_ADVERTENCIA_CEMENTERIO) / 0.7)
+        else:
+            fade = 1.0
+        alpha = max(0, min(255, int(255 * fade)))
+        panel = pygame.Rect(170, 18, 620, 48)
+        fondo = pygame.Surface(panel.size, pygame.SRCALPHA)
+        fondo.fill((8, 11, 13, int(140 * fade)))
+        pygame.draw.rect(fondo, (*PALETA_CEMENTERIO["panel_borde"], int(180 * fade)), panel, 2)
+        texto = self.gestor.fuente.render(self.cartel_advertencia, True, (*PALETA_CEMENTERIO["texto"], alpha))
+        pantalla.blit(fondo, panel.topleft)
+        pantalla.blit(texto, (panel.centerx - texto.get_width() // 2, panel.y + 13))
 
     def _dibujar_game_over(self, pantalla: pygame.Surface) -> None:
         capa = pygame.Surface(pantalla.get_size(), pygame.SRCALPHA)

@@ -26,8 +26,12 @@ MARGEN_CAMARA_CEMENTERIO = 96
 VELOCIDAD_CAMARA_CEMENTERIO = 8.0
 SEGUNDOS_FADE_INTRO_CEMENTERIO = 0.55
 SEGUNDOS_FINAL_CEMENTERIO = 3.0
-FUERZA_SALTO_CEMENTERIO = 510.0
-GRAVEDAD_CEMENTERIO = 1250.0
+CANTIDAD_TUMBAS_ABIERTAS_CEMENTERIO = 6
+DURACION_CARTEL_ADVERTENCIA_CEMENTERIO = 2.8
+DURACION_SILUETAS_FINALES_CEMENTERIO = 2.6
+FUERZA_SALTO_CEMENTERIO = 590.0
+VELOCIDAD_HORIZONTAL_SALTO_CEMENTERIO = 1.18
+GRAVEDAD_CEMENTERIO = 1150.0
 VELOCIDAD_ANIMACION_CEMENTERIO = 8.0
 DURACION_CAIDA_TUMBA = 0.42
 DURACION_SALIDA_RESCATE = 0.72
@@ -37,23 +41,32 @@ DISTANCIA_RESCATE = 112
 
 EFECTOS_CEMENTERIO = {
 	"iluminacion_habilitada": True,
-	"oscuridad_alpha": 142,
+	"oscuridad_alpha": 138,
 	"linterna_habilitada": True,
-	"linterna_radio": 176,
-	"linterna_intensidad": 0.70,
+	"linterna_radio": 210,
+	"linterna_intensidad": 0.78,
 	"sombras_habilitadas": True,
 	"niebla_habilitada": True,
-	"niebla_alpha": 42,
+	"niebla_alpha": 26,
 	"vineta_habilitada": True,
-	"niebla_velocidad_lejana": 8.0,
-	"niebla_velocidad_cercana": 19.0,
+	"niebla_velocidad_lejana": 7.0,
+	"niebla_velocidad_cercana": 15.0,
 	"grano_habilitado": True,
 	"grano_fps": 8.0,
-	"vineta_intensidad": 0.62,
-	"grano_intensidad": 0.09,
+	"vineta_intensidad": 0.68,
+	"grano_intensidad": 0.07,
 	"parpadeo_habilitado": True,
-	"parpadeo_intensidad": 0.08,
-	"parpadeo_frecuencia": 1.8,
+	"parpadeo_intensidad": 0.06,
+	"parpadeo_frecuencia": 1.4,
+}
+
+SILUETAS_FINALES_CEMENTERIO = {
+	"cantidad": 2,
+	"ancho": 36,
+	"alto": 50,
+	"amplitud": 8,
+	"velocidad": 1.8,
+	"desfase": 0.7,
 }
 
 INTERVALO_PASOS_CEMENTERIO = 0.36
